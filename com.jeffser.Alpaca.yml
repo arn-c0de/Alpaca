@@ -5,9 +5,10 @@ sdk: org.gnome.Sdk
 command: alpaca
 finish-args:
   - --share=network
-  - --share=ipc
+  # hardened: removed --share=ipc (X11 sandbox-escape vector)
   - --socket=fallback-x11
-  - --device=all
+  # hardened: --device=all -> --device=dri (GPU only; no webcam/mic/USB/input)
+  - --device=dri
   - --socket=pulseaudio
   - --socket=wayland
   - --filesystem=/sys/module/amdgpu:ro
